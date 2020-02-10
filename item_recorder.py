@@ -20,6 +20,7 @@ from src.models import Item, Repository
 from math import ceil
 from decimal import Decimal
 from time import sleep
+from memory_profiler import profile
 
 ITEM_NAME_LIST = ['apple', 'sony', 'fujifilm', 'samsung', 'huawei', 'dji', 'meizu', 'xiaomi', 'acer', 'honor', 'dell',
                   'canon', 'panasonic', 'olympus', 'surface', 'redmi', 'onePlus', 'motorala', 'oppo', 'vivo', 'google',
@@ -43,6 +44,7 @@ def update_repository(exist_repo: Repository, new_repo: Repository):
     exist_repo.total += new_repo.total
 
 
+@profile
 def process_item(item_seq: Sequence[Item]):
     item_name_set = set()
     repo_dict = dict()
@@ -65,6 +67,8 @@ def process_item(item_seq: Sequence[Item]):
     repository_list = list(repo_dict.values())
     repository_list.extend(item_seq)
     rtn_flag = save_all(repository_list)
+    repository_list.clear()
+    exist_repo_dict.clear()
     return rtn_flag
 
 
