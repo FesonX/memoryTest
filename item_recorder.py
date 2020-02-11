@@ -8,14 +8,14 @@
    date:          20-2-10
 -------------------------------------------------
 """
-
+# import profile
 import random
 from decimal import Decimal
 from math import ceil
 from time import sleep
 from typing import Sequence
 
-import objgraph
+# import objgraph
 from loguru import logger
 
 from src import app
@@ -45,6 +45,7 @@ def update_repository(exist_repo: Repository, new_repo: Repository):
     exist_repo.total += new_repo.total
 
 
+# @profile
 def process_item(item_seq: Sequence[Item]):
     item_name_set = set()
     repo_dict = dict()
@@ -78,7 +79,7 @@ if __name__ == '__main__':
     per_page = 500
     total_pages = ceil(total / per_page)
     # Show the increase in peak object counts since last call. Default is Top 10
-    objgraph.show_growth()
+    # objgraph.show_growth()
     with app.app_context():
         for p in range(total_pages):
             temp_list = create_items(per_page)
@@ -86,8 +87,8 @@ if __name__ == '__main__':
             sleep(0.05)
             if flag:
                 logger.info('---- {} items processed.'.format(per_page * (p + 1)))
-            if p == 1:
-                # Show the increase in peak object counts since last call. Default is Top 10
-                objgraph.show_growth()
+            # if p == 1:
+            #     # Show the increase in peak object counts since last call. Default is Top 10
+            #     objgraph.show_growth()
         logger.info('All items has been processed.')
-        objgraph.show_growth()
+        # objgraph.show_growth()
