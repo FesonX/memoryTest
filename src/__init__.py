@@ -26,6 +26,7 @@ def create_app() -> Flask:
     # # For example, current project use `pymysql` as driver
     # SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://user:password@localhost:3306/db_name'
     app.config.from_pyfile(BASE_DIR + '/instance/config.py')
+    app.config.update(SQLALCHEMY_RECORD_QUERIES=False)
     random_bytes = urandom(64)
     app.secret_key = random_bytes
 
